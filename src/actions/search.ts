@@ -38,7 +38,7 @@ export async function getUserSearchInfo() {
   
   let searchLimit = 3; // Default for free users
   if (tier === "premium") {
-    searchLimit = 20;
+    searchLimit = 20; // Set back to 20 for premium users
   } else if (tier === "unlimited") {
     searchLimit = Infinity;
   }
@@ -46,8 +46,8 @@ export async function getUserSearchInfo() {
   return {
     searchCount,
     tier,
-    isLimitReached: tier === "free" && searchCount >= searchLimit,
-    remainingSearches: Math.max(0, searchLimit - searchCount)
+    isLimitReached: (tier === "free" && searchCount >= 3) || (tier === "premium" && searchCount >= 20),
+    remainingSearches: tier === "unlimited" ? Infinity : Math.max(0, searchLimit - searchCount)
   };
 }
 
@@ -95,7 +95,8 @@ export async function incrementSearchCount(query: string, results: SearchResult[
   return {
     success: true,
     message: "Jumlah carian dikemaskini",
-    isLimitReached: userInfo.searchCount + 1 >= 3 && userInfo.tier === "free",
+    isLimitReached: (userInfo.tier === "free" && userInfo.searchCount + 1 >= 3) || 
+                    (userInfo.tier === "premium" && userInfo.searchCount + 1 >= 20),
     remainingSearches: Math.max(0, userInfo.remainingSearches - 1)
   };
 }
@@ -237,8 +238,6 @@ export async function searchFatwa(query: string) {
     }
 
     const data = await response.json();
-
-    console.log("data", data)
     
     // If user is authenticated, log this search and increment count
     // Check if data has a results property that is an array
