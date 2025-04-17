@@ -955,9 +955,16 @@ export function HomePage() {
                           Hantarkan soalan anda ke:
                         </p>
                         <p className="text-gray-700">
-                          <a href="mailto:ukk@muftiwp.gov.my" className="text-emerald-700">
-                            ukk@muftiwp.gov.my
-                          </a>
+                        <a
+                          href={`mailto:ukk@muftiwp.gov.my?subject=${encodeURIComponent(
+                            'Soalan untuk al-Irsyad [Carifatwa.com]'
+                          )}&body=${encodeURIComponent(
+                            `Assalamualaikum wbt,\nSaya cuba mencari hukum tentang\n\n"${query}"\n\ndengan menggunakan **CariFatwa.com**, namun tidak menjumpai sebarang hasil jawapan yang tepat mengenai soalan saya.\n\nDiharap soalan saya dapat dibalas.\n\nSekian,\n${session?.user?.email ?? ''}`
+                          )}`}
+                          className="text-emerald-700"
+                        >
+                          ukk@muftiwp.gov.my
+                        </a>
                           <br />
                           <a href="tel:0388709000" className="text-emerald-700">
                             03-8870 9000
