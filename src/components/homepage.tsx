@@ -22,6 +22,7 @@ import {
   Menu,
   User,
   LogOut,
+  MailQuestion,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -939,6 +940,40 @@ export function HomePage() {
                     <div className="h-1 w-full bg-gradient-to-r from-emerald-500 to-emerald-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                   </Card>
                 ))}
+
+                <Card className="bg-yellow-50/80 border-orange-100">
+                  <CardContent className="p-6">
+                    <div className="flex items-start space-x-4">
+                      <div className="bg-orange-100 p-2.5 rounded-xl">
+                        <MailQuestion className="h-6 w-6 text-yellow-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold mb-2">
+                          Tak jumpa apa yang dicari?
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed">
+                          Hantarkan soalan anda ke:
+                        </p>
+                        <p className="text-gray-700">
+                        <a
+                          href={`mailto:ukk@muftiwp.gov.my?subject=${encodeURIComponent(
+                            'Soalan untuk al-Irsyad [Carifatwa.com]'
+                          )}&body=${encodeURIComponent(
+                            `Assalamualaikum wbt,\nSaya cuba mencari hukum tentang\n\n"${query}"\n\ndengan menggunakan **CariFatwa.com**, namun tidak menjumpai sebarang hasil jawapan yang tepat mengenai soalan saya.\n\nDiharap soalan saya dapat dibalas.\n\nSekian,\n${session?.user?.email ?? ''}`
+                          )}`}
+                          className="text-emerald-700"
+                        >
+                          ukk@muftiwp.gov.my
+                        </a>
+                          <br />
+                          <a href="tel:0388709000" className="text-emerald-700">
+                            03-8870 9000
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             ) : (
               <div>
